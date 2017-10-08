@@ -1,0 +1,10 @@
+{% extends 'events/base.html' %}
+{% block content %}
+  {% for evento in eventos %}
+    <h3>{{ evento.nombre }} </h3>
+  {% endfor %}
+
+  {% for categoria in categorias%}
+    <h3>{{ categoria.nombre }} </h3>
+  {% endfor %}
+{% endblock content %}
