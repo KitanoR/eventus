@@ -22,7 +22,7 @@ class Evento(TimeStampModel):
     lugar = models.CharField(max_length=50)
     inicio = models.DateTimeField()
     final = models.DateTimeField()
-    #imagen = models.ImageField(upload_to = 'events')
+    imagen = models.ImageField(blank = True)
     is_free = models.BooleanField(default=True)
     precio = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
     vistas = models.PositiveIntegerField(default=0, blank=True, null=True)
