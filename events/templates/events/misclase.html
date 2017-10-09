@@ -3,7 +3,7 @@
 <div class ="row d-flex justify-content-center">
 
   <div class="col-md-12 d-flex justify-content-end">
-    <a href="" class="d-flex align-items-center">
+    <a href="{%url 'evento_nuevo'%}" class="d-flex align-items-center">
       <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i>
       Crear nuevo evento
     </a>
@@ -24,10 +24,11 @@
     {% for evento in eventos %}
       <tr class="animated fadeIn">
         <th >
+          {%if evento.imagen%}
           <a class="ui tiny image">
             <img class="card-img-top" src="{{evento.imagen.url}}" alt="Card image cap">
           </a>
-
+          {% endif %}
           {{evento.nombre}}
         </th>
         <td>{{evento.lugar}}</td>
@@ -38,10 +39,10 @@
         </td>
         <td>{{evento.categoria}}</td>
         <td>
-          <a class="ml-2" href="">
+          <a class="ml-2" href="{% url 'evento_editar' pk=evento.pk %}">
             <i class="fa fa-pencil fa-3x text-info" aria-hidden="true"></i>
           </a>
-          <a href="">
+          <a href="{% url 'evento_eliminar' pk=evento.pk %}">
             <i class="fa fa-trash fa-3x text-danger" aria-hidden="true"></i>
           </a>
         </td>

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Categoria, Evento ,Asistente, Comentario, Participante
 from django.contrib.auth.decorators import login_required
-
+from .forms import EventoForm
 # Create your views here.
 def listar_eventos(request):
     eventos = Evento.objects.all().order_by('-created')
@@ -25,3 +25,35 @@ def mis_clases(request):
 def mis_prox_eventos(request):
     actividades = Participante.objects.filter(asistente__pk = request.user.pk)
     return render(request,'events/actividadesprox.html', {'actividades':actividades})
+
+def evento_nuevo(request):
+    if request.method == "POST":
+        form = EventoForm(request.POST)
+        if form.is_valid():
+            evento = form.save(commit = False)
+            evento.organizador = request.user
+            evento.save()
+            return redirect('detEvento', pk = evento.pk)
+    else:
+        form = EventoForm()
+    return render(request, 'events/evento_edit.html',{'form': form})
+def evento_editar(request, pk):
+    evento = get_object_or_404(Evento, pk = pk)
+    if request.method == "POST":
+        form = EventoForm(request.POST, instance = evento)
+        if form.is_valid():
+            evento = form.save(commit = False)
+            evento.organizador = request.user
+            evento.save()
+            return redirect('detEvento', pk = evento.pk)
+    else:
+        form = EventoForm(instance = evento)
+    return render(request, 'events/evento_edit.html',{'form': form})
+def evento_eliminar(request, pk):
+    evento = get_object_or_404(Evento, pk = pk)
+    evento.delete()
+    return redirect('miseventos')
+def salir_evento(request, pk):
+    partpante = get_object_or_404(Participante, pk = pk)
+    participante.delete()
+    return redirect('participar')
