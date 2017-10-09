@@ -40,7 +40,7 @@ def mis_prox_eventos(request):
 
 def evento_nuevo(request):
     if request.method == "POST":
-        form = EventoForm(request.POST)
+        form = EventoForm(request.POST, request.FILES)
         if form.is_valid():
             evento = form.save(commit = False)
             evento.organizador = request.user
