@@ -43,13 +43,15 @@ class Asistente(TimeStampModel):
         return "%s " % (self.evento.asistente)
 class Participante(models.Model):
     asistente = models.ForeignKey('auth.User')
-    evento = models.ForeignKey(Evento)
+    evento = models.ForeignKey(Evento,on_delete = models.CASCADE)
+    def guardar(self):
+        self.save()
     def __str__(self):
         return "%s %s" % (self.evento.nombre, self.asistente.username)
 
 class Comentario(TimeStampModel):
     usuario = models.ForeignKey('auth.User')
-    evento = models.ForeignKey(Evento)
+    evento = models.ForeignKey(Evento,on_delete = models.CASCADE)
 
     contenido = models.TextField()
     def __str__(self):

@@ -1,0 +1,49 @@
+{% extends 'events/base.html' %}
+{% block content %}
+<div class ="row d-flex justify-content-center">
+  {%if actividades%}
+  <table class="table">
+    <thead class="thead-default">
+      <tr>
+        <th>Nombre</th>
+        <th>Lugar</th>
+        <th>Inicio</th>
+        <th>Precio</th>
+        <th>Categoría</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+  {% for data in actividades %}
+
+  <tr class="animated fadeIn">
+    <th >
+      <a class="ui tiny image">
+        <img class="card-img-top" src="{{data.evento.imagen.url}}" alt="Card image cap">
+      </a>
+
+      {{data.evento.nombre}}
+    </th>
+    <td>{{data.evento.lugar}}</td>
+    <td>{{data.evento.inicio}}</td>
+    <td>
+        {{data.evento.precio}}
+    </td>
+    <td>{{data.evento.categoria}}</td>
+    <td>
+      <a href="">
+        <i class="fa fa-trash fa-3x text-danger" aria-hidden="true"></i>
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+  {%else%}
+  <div class="alert alert-info text-center" role="alert">
+    No tiene actividades asignadas!!
+  </div>
+  {%endif%}
+
+</div>
+{% endblock content %}

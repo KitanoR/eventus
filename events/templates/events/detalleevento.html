@@ -1,0 +1,78 @@
+{% extends 'events/base.html' %}
+{% block content %}
+  <a href="{% url 'participar' pk=evento.pk %}" class="btn btn-primary">Participar</a>
+<div class ="row d-flex justify-content-center">
+    <div class="col-md-4 animated fadeIn">
+      <img class="card-img-top" src="{{evento.imagen.url}}" alt="Card image cap">
+    </div>
+    <div class="col-md-8 animated fadeIn">
+      <h1 class="h2"> {{evento.nombre}}</h1>
+      <hr>
+      <h2>Sumario:</h2>
+      <p>
+        {{evento.sumario}}
+      </p>
+      <h2>Contenido:</h2>
+      <p>
+        {{evento.contenido}}
+      </p>
+      <h2 class="h2">Precio: </h2>
+      {% if evento.is_free %}
+        <span class="badge badge-success letrasBage">Gratis</span>
+      {%else%}
+        <span class="badge badge-info letrasBage">Q.{{evento.precio}}</span>
+      {% endif %}
+      <br>
+      <h2 class="h2">Categoria: </h2><span class="badge badge-secondary letrasBage">{{evento.categoria}}</span>
+      <br>
+      <h2 class="h2">Lugar: </h2>{{evento.lugar}}
+
+      <div class="row col-md-12 mt-2 px-0 mx-0">
+        <div class="col mx-0 px-0">
+          <h2>Inicio</h2>
+          {{evento.inicio}}
+        </div>
+        <div class="col">
+          <h2>Final</h2>
+          {{evento.final}}
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="ui minimal comments animated fadeIn col-md-12">
+  <h3 class="ui dividing header">Comentarios</h3>
+  {%for comentario in comentarios%}
+
+   <div class="comment animated fadeIn">
+     <a class="avatar">
+       <img src="/images/avatar/small/matt.jpg">
+     </a>
+     <div class="content">
+       <a class="author">akk a</a>
+       <div class="metadata">
+         <span class="date">Today at 5:42PM</span>
+       </div>
+       <div class="text">
+         {{comentario.contenido}}
+       </div>
+       <div class="actions">
+         <a class="reply">Reply</a>
+       </div>
+     </div>
+   </div>
+  {% endfor %}
+
+  <form class="ui reply form">
+    <div class="field">
+      <textarea></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">
+      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+        Comentar
+    </button>
+  </form>
+</div>
+
+
+{% endblock content %}
