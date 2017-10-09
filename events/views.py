@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Categoria, Evento ,Asistente, Comentario, Participante
 from django.contrib.auth.decorators import login_required
-from .forms import EventoForm
+from .forms import EventoForm, ComentarioForm
 # Create your views here.
 def listar_eventos(request):
     eventos = Evento.objects.all().order_by('-created')
@@ -13,7 +13,19 @@ def listar_eventos(request):
 def detalle_evento(request, pk):
     evento = get_object_or_404(Evento, pk = pk)
     comentarios = Comentario.objects.filter(evento__pk = pk)
-    return render(request, 'events/detalleevento.html',{'evento': evento, 'comentarios':comentarios})
+
+    if request.method == "POST":
+        form = ComentarioForm(request.POST)
+        if form.is_valid():
+            comentario = form.save(commit = False)
+            comentario.evento = evento
+            comentario.usuario = request.user
+            comentario.save()
+            return render(request, 'events/detalleevento.html',{'evento': evento, 'comentarios':comentarios, 'form':form})
+    else:
+        form = ComentarioForm()
+
+    return render(request, 'events/detalleevento.html',{'evento': evento, 'comentarios':comentarios, 'form':form})
 
 def unirse_evento(request, pk):
     p = Participante(asistente= request.user,evento = Evento.objects.get(pk = pk))
@@ -57,3 +69,7 @@ def salir_evento(request, pk):
     partpante = get_object_or_404(Participante, pk = pk)
     participante.delete()
     return redirect('participar')
+def comentario_eliminar(request, pk):
+    comentario = get_object_or_404(Comentario, pk = pk)
+    comentario.delete()
+    return redirect('miseventos')

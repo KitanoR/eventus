@@ -49,28 +49,26 @@
        <img src="/images/avatar/small/matt.jpg">
      </a>
      <div class="content">
-       <a class="author">akk a</a>
+       <a class="author">{{comentario.usuario.username}}</a>
        <div class="metadata">
-         <span class="date">Today at 5:42PM</span>
+         <span class="date">{{comentario.created}}</span>
        </div>
        <div class="text">
          {{comentario.contenido}}
        </div>
        <div class="actions">
-         <a class="reply">Reply</a>
+         <a class="reply">Editar</a>
+         <a class="reply" href="{% url 'comentario_eliminar' pk=comentario.pk%}">Eliminar</a>
        </div>
      </div>
    </div>
   {% endfor %}
-
-  <form class="ui reply form">
-    <div class="field">
-      <textarea></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">
-      <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-        Comentar
-    </button>
+  <form method="POST" class="ui reply form">{% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          Comentar
+      </button>
   </form>
 </div>
 

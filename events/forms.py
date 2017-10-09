@@ -5,3 +5,7 @@ class EventoForm(forms.ModelForm):
     class Meta:
         model = Evento
         fields = ('nombre', 'sumario','contenido','categoria','lugar','inicio','final','imagen','is_free','precio',)
+class ComentarioForm(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ('contenido',)
