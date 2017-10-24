@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Categoria, Evento ,Asistente, Comentario, Participante
 from django.contrib.auth.decorators import login_required
-from .forms import EventoForm, ComentarioForm
+from .forms import EventoForm, ComentarioForm, CrearUsuarioForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def listar_eventos(request):
     eventos = Evento.objects.all().order_by('-created')
@@ -73,3 +74,13 @@ def comentario_eliminar(request, pk):
     comentario = get_object_or_404(Comentario, pk = pk)
     comentario.delete()
     return redirect('miseventos')
+def registrar(request):
+    if request.method == "POST":
+        form = CrearUsuarioForm(request.POST)
+        if form.is_valid():
+            usuario = form.save(commit = False)
+            usuario.save()
+            return redirect('home')
+    else:
+        form = CrearUsuarioForm()
+    return render(request, 'events/registrar.html',{'form': form})

@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^evento/(?P<pk>\d+)/eliminar/$', views.evento_eliminar, name='evento_eliminar'),
     url(r'^comentario/(?P<pk>\d+)/eliminar/$', views.comentario_eliminar, name='comentario_eliminar'),
     url(r'^miseventos/(?P<pk>\d+)/salir/$', views.evento_eliminar, name='evento_salir'),
+    url(r'^registrar/$', views.registrar, name='registrar'),
 
 ]

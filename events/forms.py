@@ -1,5 +1,6 @@
 from django import forms
 from .models import Categoria, Evento ,Asistente, Comentario, Participante
+from django.contrib.auth.models import User
 
 class EventoForm(forms.ModelForm):
     class Meta:
@@ -41,3 +42,19 @@ class ComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
         fields = ('contenido',)
+
+
+class CrearUsuarioForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username','password','email',]
+        labels = {
+            'username':'Usuario',
+            'password':'Contraseña',
+            'email': 'Correo',
+        }
+        widgets = {
+            'username' : forms.TextInput(attrs = {'class': 'form-control'}),
+            'password' : forms.TextInput(attrs = {'class': 'form-control'}),
+            'email' : forms.TextInput(attrs = {'class': 'form-control'}),
+        }
