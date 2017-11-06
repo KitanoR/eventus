@@ -25,7 +25,7 @@ SECRET_KEY = '&&6@^b=i#&b@1=*6ueqb79(zmf4*-!fef#tu%n+hu%w^lcu(j$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kikabr.pythonanywhere.com','127.0.0.1']
+ALLOWED_HOSTS = ['kikabr.pythonanywhere.com','127.0.0.1','taaano.pythonanywhere.com']
 LOGIN_REDIRECT_URL = '/'
 
 # Application definition
