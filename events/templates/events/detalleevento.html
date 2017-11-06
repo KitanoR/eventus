@@ -1,6 +1,15 @@
 {% extends 'events/base.html' %}
 {% block content %}
+<div class="d-flex justify-content-end">
+  {% if user.is_authenticated %}
   <a href="{% url 'participar' pk=evento.pk %}" class="btn btn-primary">Participar</a>
+
+  {%else%}
+  <a href="{% url 'login'  %}" class="btn btn-primary">Iniciar sesión para participar</a>
+
+  {%endif%}
+
+</div>
 <div class ="row d-flex justify-content-center">
     <div class="col-md-4 animated fadeIn">
       <img class="card-img-top" src="{{evento.imagen.url}}" alt="Card image cap">
@@ -39,37 +48,45 @@
       </div>
     </div>
 </div>
+<div class="mb-5">
+  <div class="ui minimal comments animated fadeIn col-md-12">
+    <h3 class="ui dividing header">Comentarios</h3>
+    {%for comentario in comentarios%}
 
-<div class="ui minimal comments animated fadeIn col-md-12">
-  <h3 class="ui dividing header">Comentarios</h3>
-  {%for comentario in comentarios%}
-
-   <div class="comment animated fadeIn">
-     <a class="avatar">
-       <img src="/images/avatar/small/matt.jpg">
-     </a>
-     <div class="content">
-       <a class="author">{{comentario.usuario.username}}</a>
-       <div class="metadata">
-         <span class="date">{{comentario.created}}</span>
-       </div>
-       <div class="text">
-         {{comentario.contenido}}
-       </div>
-       <div class="actions">
-         <a class="reply">Editar</a>
-         <a class="reply" href="{% url 'comentario_eliminar' pk=comentario.pk%}">Eliminar</a>
+     <div class="comment animated fadeIn">
+       <a class="avatar">
+         <img src="/images/avatar/small/matt.jpg">
+       </a>
+       <div class="content">
+         <a class="author">{{comentario.usuario.username}}</a>
+         <div class="metadata">
+           <span class="date">{{comentario.created}}</span>
+         </div>
+         <div class="text">
+           {{comentario.contenido}}
+         </div>
+         {% if user.is_authenticated   %}
+         <div class="actions">
+           {% if user.pk == comentario.usuario.pk %}
+           <a class="reply" href="{% url 'comentario_eliminar' pk=comentario.pk%}">Eliminar</a>
+           {% endif %}
+         </div>
+        {% endif %}
        </div>
      </div>
-   </div>
-  {% endfor %}
-  <form method="POST" class="ui reply form">{% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">
-        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          Comentar
-      </button>
-  </form>
+    {% endfor %}
+    {% if user.is_authenticated %}
+    <form method="POST" class="ui reply form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            Comentar
+        </button>
+    </form>
+    {% endif %}
+</div>
+
+
 </div>
 
 

@@ -1,4 +1,4 @@
-#!/home/tano/eventus/miav/bin/python3
+#!/home/tano/eventos/miav/bin/python3
 #
 # The Python Imaging Library.
 # $Id$

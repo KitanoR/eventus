@@ -32,13 +32,15 @@ def unirse_evento(request, pk):
     p = Participante(asistente= request.user,evento = Evento.objects.get(pk = pk))
     p.guardar()
     return redirect('home')
+@login_required
 def mis_clases(request):
     eventos = Evento.objects.filter(organizador__pk = request.user.pk)
     return render(request, 'events/misclase.html' , {'eventos': eventos})
+@login_required
 def mis_prox_eventos(request):
     actividades = Participante.objects.filter(asistente__pk = request.user.pk)
     return render(request,'events/actividadesprox.html', {'actividades':actividades})
-
+@login_required
 def evento_nuevo(request):
     if request.method == "POST":
         form = EventoForm(request.POST, request.FILES)
@@ -50,6 +52,7 @@ def evento_nuevo(request):
     else:
         form = EventoForm()
     return render(request, 'events/evento_edit.html',{'form': form})
+@login_required
 def evento_editar(request, pk):
     evento = get_object_or_404(Evento, pk = pk)
     if request.method == "POST":
@@ -62,10 +65,13 @@ def evento_editar(request, pk):
     else:
         form = EventoForm(instance = evento)
     return render(request, 'events/evento_edit.html',{'form': form})
+
+@login_required
 def evento_eliminar(request, pk):
     evento = get_object_or_404(Evento, pk = pk)
     evento.delete()
     return redirect('miseventos')
+@login_required
 def salir_evento(request, pk):
     partpante = get_object_or_404(Participante, pk = pk)
     participante.delete()
