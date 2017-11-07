@@ -32,3 +32,9 @@
 body{
   background-color: #eaedf1 !important;
 }
+.colorBlanco{
+  background-color: white !important;
+}
+.letragrande{
+  font-size: 2em !important;
+}

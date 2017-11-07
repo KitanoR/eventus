@@ -1,64 +1,64 @@
 {% extends 'events/base.html' %}
 {% block content %}
-<div class ="row d-flex justify-content-center">
+<div class="card">
+  <div class="card-body">
+    <div class ="row d-flex justify-content-center">
 
-  <div class="col-md-12 d-flex justify-content-end">
-    <a href="{%url 'evento_nuevo'%}" class="d-flex align-items-center">
-      <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i>
-      Crear nuevo evento
-    </a>
+      <div class="col-md-12 d-flex justify-content-end">
+        <a href="{%url 'evento_nuevo'%}" class="d-flex align-items-center">
+          <i class="fa fa-plus-circle fa-3x" aria-hidden="true"></i>
+          Crear nuevo evento
+        </a>
+      </div>
+      {%if eventos%}
+      <table class="table">
+        <thead class="thead-default">
+          <tr>
+            <th>Nombre</th>
+            <th>Lugar</th>
+            <th>Inicio</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for evento in eventos %}
+          <tr class="animated fadeIn">
+            <th >
+              {%if evento.imagen%}
+              <a class="ui tiny image">
+                <img class="card-img-top" src="{{evento.imagen.url}}" alt="Card image cap">
+              </a>
+              {% endif %}
+              {{evento.nombre}}
+            </th>
+            <td>{{evento.lugar}}</td>
+            <td>{{evento.inicio}}</td>
+            <td>
+                {{evento.precio}}
+
+            </td>
+            <td>{{evento.categoria}}</td>
+            <td>
+              <a class="ml-2" href="{% url 'evento_editar' pk=evento.pk %}">
+                <i class="fa fa-pencil fa-3x text-info" aria-hidden="true"></i>
+              </a>
+              <a href="{% url 'evento_eliminar' pk=evento.pk %}">
+                <i class="fa fa-trash fa-3x text-danger" aria-hidden="true"></i>
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {%else%}
+      <div class="alert alert-info text-center" role="alert">
+        No tiene actividades creadas!!
+      </div>
+      {%endif%}
+    </div>
   </div>
-  {%if eventos%}
-  <table class="table">
-    <thead class="thead-default">
-      <tr>
-        <th>Nombre</th>
-        <th>Lugar</th>
-        <th>Inicio</th>
-        <th>Precio</th>
-        <th>Categoría</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for evento in eventos %}
-      <tr class="animated fadeIn">
-        <th >
-          {%if evento.imagen%}
-          <a class="ui tiny image">
-            <img class="card-img-top" src="{{evento.imagen.url}}" alt="Card image cap">
-          </a>
-          {% endif %}
-          {{evento.nombre}}
-        </th>
-        <td>{{evento.lugar}}</td>
-        <td>{{evento.inicio}}</td>
-        <td>
-            {{evento.precio}}
-
-        </td>
-        <td>{{evento.categoria}}</td>
-        <td>
-          <a class="ml-2" href="{% url 'evento_editar' pk=evento.pk %}">
-            <i class="fa fa-pencil fa-3x text-info" aria-hidden="true"></i>
-          </a>
-          <a href="{% url 'evento_eliminar' pk=evento.pk %}">
-            <i class="fa fa-trash fa-3x text-danger" aria-hidden="true"></i>
-          </a>
-        </td>
-      </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-  {%else%}
-  <div class="alert alert-info text-center" role="alert">
-    No tiene actividades creadas!!
-  </div>
-  {%endif%}
-
-
-
-
-
 </div>
+
 {% endblock content %}

@@ -1,43 +1,49 @@
 {% extends 'events/base.html' %}
 {% block content %}
-<div class ="row d-flex justify-content-center">
-  {%if actividades%}
-  <table class="table">
-    <thead class="thead-default">
-      <tr>
-        <th>Nombre</th>
-        <th>Lugar</th>
-        <th>Inicio</th>
-        <th>Precio</th>
-        <th>Categoría</th>
+<div class="card">
+  <div class="card-body">
+    <div class ="row d-flex justify-content-center">
+      {%if actividades%}
+      <table class="table">
+        <thead class="thead-default">
+          <tr>
+            <th>Nombre</th>
+            <th>Lugar</th>
+            <th>Inicio</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+          </tr>
+        </thead>
+        <tbody>
+      {% for data in actividades %}
+
+      <tr class="animated fadeIn">
+        <th >
+          <a class="ui tiny image">
+            <img class="card-img-top" src="{{data.evento.imagen.url}}" alt="Card image cap">
+          </a>
+
+          {{data.evento.nombre}}
+        </th>
+        <td>{{data.evento.lugar}}</td>
+        <td>{{data.evento.inicio}}</td>
+        <td>
+            {{data.evento.precio}}
+        </td>
+        <td>{{data.evento.categoria}}</td>
       </tr>
-    </thead>
-    <tbody>
-  {% for data in actividades %}
+      {% endfor %}
+      </tbody>
+    </table>
+      {%else%}
+      <div class="alert alert-info text-center" role="alert">
+        No tiene actividades asignadas!!
+      </div>
+      {%endif%}
 
-  <tr class="animated fadeIn">
-    <th >
-      <a class="ui tiny image">
-        <img class="card-img-top" src="{{data.evento.imagen.url}}" alt="Card image cap">
-      </a>
+    </div>
 
-      {{data.evento.nombre}}
-    </th>
-    <td>{{data.evento.lugar}}</td>
-    <td>{{data.evento.inicio}}</td>
-    <td>
-        {{data.evento.precio}}
-    </td>
-    <td>{{data.evento.categoria}}</td>
-  </tr>
-  {% endfor %}
-  </tbody>
-</table>
-  {%else%}
-  <div class="alert alert-info text-center" role="alert">
-    No tiene actividades asignadas!!
   </div>
-  {%endif%}
-
 </div>
+
 {% endblock content %}
