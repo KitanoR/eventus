@@ -55,6 +55,18 @@ class CrearUsuarioForm(forms.ModelForm):
         }
         widgets = {
             'username' : forms.TextInput(attrs = {'class': 'form-control'}),
-            'password' : forms.TextInput(attrs = {'class': 'form-control'}),
+            'password' : forms.PasswordInput(attrs = {'class': 'form-control'}),
             'email' : forms.TextInput(attrs = {'class': 'form-control'}),
+        }
+class LoginForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username','password',]
+        labels = {
+            'username':'Usuario',
+            'password':'Contraseña',
+        }
+        widgets = {
+            'username' : forms.TextInput(attrs = {'class': 'form-control'}),
+            'password' : forms.PasswordInput(attrs = {'class': 'form-control'}),
         }

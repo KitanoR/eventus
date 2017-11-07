@@ -4,11 +4,11 @@ from .models import Categoria, Evento ,Asistente, Comentario, Participante
 from django.contrib.auth.decorators import login_required
 from .forms import EventoForm, ComentarioForm, CrearUsuarioForm
 from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 def listar_eventos(request):
     eventos = Evento.objects.all().order_by('-created')
     categorias = Categoria.objects.all()
-
     return render(request, 'events/listareventos.html',{'eventos': eventos, 'categorias':categorias})
 
 def detalle_evento(request, pk):
@@ -27,11 +27,11 @@ def detalle_evento(request, pk):
         form = ComentarioForm()
 
     return render(request, 'events/detalleevento.html',{'evento': evento, 'comentarios':comentarios, 'form':form})
-
+@login_required
 def unirse_evento(request, pk):
     p = Participante(asistente= request.user,evento = Evento.objects.get(pk = pk))
     p.guardar()
-    return redirect('home')
+    return redirect('misactividades')
 @login_required
 def mis_clases(request):
     eventos = Evento.objects.filter(organizador__pk = request.user.pk)
