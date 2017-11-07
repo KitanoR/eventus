@@ -1,7 +1,7 @@
 from django import forms
 from .models import Categoria, Evento ,Asistente, Comentario, Participante
 from django.contrib.auth.models import User
-
+from django.contrib.auth.forms import UserCreationForm
 class EventoForm(forms.ModelForm):
     class Meta:
         model = Evento
@@ -44,19 +44,28 @@ class ComentarioForm(forms.ModelForm):
         fields = ('contenido',)
 
 
-class CrearUsuarioForm(forms.ModelForm):
+class CrearUsuarioForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username','password','email',]
-        labels = {
-            'username':'Usuario',
-            'password':'Contraseña',
+        fields = [
+            'username',
+            'first_name',
+            'last_name',
+            'email',
+        ]
+        labels={
+            'username': 'Nombre de usuario',
+            'first_name': 'Nombre',
+            'last_name': 'Apellidos',
             'email': 'Correo',
         }
         widgets = {
-            'username' : forms.TextInput(attrs = {'class': 'form-control'}),
-            'password' : forms.PasswordInput(attrs = {'class': 'form-control'}),
-            'email' : forms.TextInput(attrs = {'class': 'form-control'}),
+            'username': forms.TextInput(attrs = {'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs = {'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs = {'class': 'form-control'}),
+            'email': forms.TextInput(attrs = {'class': 'form-control'}),
+            'password1': forms.PasswordInput(attrs = {'class': 'form-control'}),
+            'password2': forms.PasswordInput(attrs = {'class': 'form-control'}),
         }
 class LoginForm(forms.ModelForm):
     class Meta:

@@ -1,23 +1,31 @@
 {% extends 'events/base.html' %}
 {% block content %}
-  {% if form.errors %}
-    <p>Los datos no son correctos, intenta de nuevo </p>
-  {%  endif %}
 
-  <div>
-    <form method="post"  action="{% url 'login' %}">
-      {% csrf_token %}
-      <div class="form-group">
-        <label for="usuarioInput">Usuario:</label>
-        <input type="text" class="form-control" id="usuarioInput" name= "username">
+
+  <div class="card">
+    <div class="card-body">
+      <div class="col-md-6">
+        <h1>Iniciar Sesión</h1>
+        <br>
+        {% if form.errors %}
+          <p>Los datos no son correctos, intenta de nuevo </p>
+        {%  endif %}
+        <form method="post"  action="{% url 'login' %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="usuarioInput">Usuario:</label>
+            <input type="text" class="form-control" id="usuarioInput" name= "username">
+          </div>
+          <div class="form-group">
+            <label for="passwordInput">Contraseña:</label>
+            <input type="password" class="form-control" id="passwordInput" name= "password">
+          </div>
+          <input type="submit" class="btn btn-primary" value="login"/>
+          <input type="hidden" name="next" value="{{ next }}" />
+        </form>
       </div>
-      <div class="form-group">
-        <label for="passwordInput">Contraseña:</label>
-        <input type="password" class="form-control" id="passwordInput" name= "password">
-      </div>
-      <input type="submit" class="btn btn-primary" value="login"/>
-      <input type="hidden" name="next" value="{{ next }}" />
-    </form>
+    </div>
   </div>
+
 
 {% endblock %}
