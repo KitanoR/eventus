@@ -1,4 +1,4 @@
-#!/home/tano/eventus/miav/bin/python3
+#!/home/tano/Documentos/eventus/miav/bin/python3
 from django.core import management
 
 if __name__ == "__main__":

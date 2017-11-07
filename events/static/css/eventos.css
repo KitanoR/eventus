@@ -20,6 +20,7 @@
   height: 80px !important ;
   color: white !important;
   font-size: 1.3em !important;
+  background-color: #20232c !important;
 }
 .p{
   font-size: 1.3 !important;
@@ -27,4 +28,7 @@
 .sombreado{
   -webkit-box-shadow: 0 1px 10px rgba(0,0,0,.2) !important;
   box-shadow:0 1px 10px rgba(0,0,0,.2) !important;
+}
+body{
+  background-color: #eaedf1 !important;
 }

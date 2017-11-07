@@ -1,4 +1,4 @@
-#!/home/tano/eventus/miav/bin/python3
+#!/home/tano/Documentos/eventus/miav/bin/python3
 """PILdriver, an image-processing calculator using PIL.
 
 An instance of class PILDriver is essentially a software stack machine
